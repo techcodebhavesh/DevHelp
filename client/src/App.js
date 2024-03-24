@@ -1,32 +1,39 @@
-import { useSelector } from 'react-redux';
+import { useContext } from 'react'
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
+import { ThemeContext } from './contexts/theme'
+import Header from './components/Header/Header'
+import About from './components/About/About'
+import Projects from './components/Projects/Projects'
+import Skills from './components/Skills/Skills'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
+import Contact from './components/Contact/Contact'
+import Footer from './components/Footer/Footer'
+import './App.css'
+import MyComponent from './components/chatbot/chatbot'
+// import AppC from './components/chatbot/Chatbot'
 
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, StyledEngineProvider } from '@mui/material';
 
-// routing
-import Routes from 'routes';
-
-// defaultTheme
-import themes from 'themes';
-
-// project imports
-import NavigationScroll from 'layout/NavigationScroll';
-
-// ==============================|| APP ||============================== //
 
 const App = () => {
-  const customization = useSelector((state) => state.customization);
+  const [{ themeName }] = useContext(ThemeContext)
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={themes(customization)}>
-        <CssBaseline />
-        <NavigationScroll>
-          <Routes />
-        </NavigationScroll>
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
-};
+    <div id='top' className={`${themeName} app`}>
+      <Header />
 
-export default App;
+      <main>
+        <About />
+        <MyComponent />
+        <Projects />
+        <Skills />
+        <Contact />
+      </main>
+
+      <ScrollToTop />
+      <Footer />
+    </div>
+  )
+}
+
+export default App

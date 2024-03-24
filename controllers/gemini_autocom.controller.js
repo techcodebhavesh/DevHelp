@@ -24,6 +24,7 @@ function fileToGenerativePart(path, mimeType) {
 async function run_autocom(text) {
   // For text-and-image input (multimodal), use the gemini-pro-vision model
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const normalText=text.toString();
 
   
   const promptInputs = {
@@ -38,9 +39,9 @@ async function run_autocom(text) {
   `;
   const prompt1=`
 
-  Input:
-  text: ${promptInputs.text}
-  tell me what you got in text.
+
+  text: ${normalText}, this conatains an incomplete code, so complete the  code  and print the full code .
+  
   
                `
   
