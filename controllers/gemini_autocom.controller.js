@@ -41,6 +41,8 @@ async function run_autocom(text) {
 
 
   text: ${normalText}, this conatains an incomplete code, so complete the  code  and print the full code .
+  note: give the output in the follwing format and also make sure that the out contains the code only and nothing else.
+  {"completed_code": "[your code]"}
   
   
                `

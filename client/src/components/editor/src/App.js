@@ -1,8 +1,8 @@
 import "./App.css";
 import Landing from "./components/Landing";
 
-function App() {
+function AppEditor() {
   return <Landing />;
 }
 
-export default App;
+export default AppEditor;

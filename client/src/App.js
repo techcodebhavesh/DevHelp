@@ -14,6 +14,8 @@ import './App.css'
 import MyComponent from './components/chatbot/chatbot'
 
 import Login from './components/login';
+import AppP from './hello'
+import Landing from './components/editor/src/components/Landing'
 
 // import AppLogin from './components/login/src/App.tsx'
 // import AppC from './components/chatbot/Chatbot'
@@ -29,6 +31,11 @@ const App = () => {
        <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login/>} />
+        <Route path="/editor" element={
+        <>
+        
+   <AppP />
+        </>} />
         <Route path="/" element={
         <> <Header />
 
