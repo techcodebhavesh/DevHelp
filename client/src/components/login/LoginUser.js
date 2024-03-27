@@ -9,10 +9,10 @@ import {
     TextField,
     Typography,
    } from '@mui/material';
-   
    import React, { useState } from 'react';
-  //  const { runQuery } = require('./connection.sql');
+  //  import { useNavigate } from "react-router-dom";
    
+  //  const navigate = useNavigate();
    function LoginUser() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,15 +27,42 @@ import {
       //     [name]: value,
       //   });
       const handleLogin = async () => {
-        // const result = await runQuery(`SELECT * FROM users WHERE username="${email}" AND password="${password}"`);
-        // if (result.length === 0) {
-        //   // handle login failure
-        // } else {
-        //   // handle login success
-        // }
-        console.log(email, password);
+        fetch("http://localhost:5003/api/user/checkl", {
+          method: "POST",
+          headers: {
+        "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password })
+        })
+        .then((response) => {
+          if (!response.ok) {
+        throw new Error('Network response was not ok');
+          }
+          if (response === 0) {
+        throw new Error('Invalid creds');
+          }
+          if (response === 1) {
+            console.log('login');
+            // navigate('http://localhost:3000/'); // Redirect to homepage
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Replace the code in the editor with the response data
+          if (data === 0) {
+        throw new Error('Invalid creds');
+          }
+          if (data === 1) {
+            console.log('login');
+            // navigate('http://localhost:3000/');// Redirect to homepage
+          }
+        })
+        
+        .catch((error) => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+
       };
-       
       // const handleLogin = async () => {
    
       // };
@@ -49,7 +76,6 @@ import {
           <Box component="form">
             
             <TextField
-           
               margin="normal"
               required
               fullWidth
@@ -60,7 +86,6 @@ import {
               autoComplete="email"
               autoFocus
               value={email}
-             
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
@@ -95,7 +120,8 @@ import {
             </Grid>
             <Grid className="footer">
               <Typography component="h5">
-                Dont have an account?{" "}
+                Dont have an account?
+                {" "}
                 <Link href="https://harshitamittal2001.medium.com/create-a-simple-login-form-for-your-react-application-c15a8ead146b">
                   Sign Up
                 </Link>
