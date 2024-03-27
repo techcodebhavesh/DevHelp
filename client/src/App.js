@@ -15,6 +15,7 @@ import MyComponent from './components/chatbot/chatbot'
 import Login from './components/login';
 import AppP from './hello'
 import Landing from './components/editor/src/components/Landing'
+import AppEditor from './components/editor/src/App'
 
 
 // const AppEditor = () => <Landing />; // Define this function outside of the JSX
@@ -30,6 +31,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/editor" element={<AppEditor />} />
           {/* <Route path="/editor" element={<AppEditor />} /> */}
           <Route 
             path="/" 
@@ -44,6 +46,8 @@ const App = () => {
                     <Skills />
                     <Contact />
                   </main>
+                  <Footer />
+                  <ScrollToTop />
                 </>
               )  
             } 
