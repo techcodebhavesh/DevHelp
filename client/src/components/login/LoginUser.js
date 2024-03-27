@@ -11,6 +11,7 @@ import {
    } from '@mui/material';
    
    import React, { useState } from 'react';
+  //  const { runQuery } = require('./connection.sql');
    
    function LoginUser() {
     const [email, setEmail] = useState("");
@@ -26,6 +27,12 @@ import {
       //     [name]: value,
       //   });
       const handleLogin = async () => {
+        // const result = await runQuery(`SELECT * FROM users WHERE username="${email}" AND password="${password}"`);
+        // if (result.length === 0) {
+        //   // handle login failure
+        // } else {
+        //   // handle login success
+        // }
         console.log(email, password);
       };
        

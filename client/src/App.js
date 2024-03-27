@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { React,useContext } from 'react'
 import Chatbot from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom" 
@@ -12,51 +12,49 @@ import Contact from './components/Contact/Contact'
 import Footer from './components/Footer/Footer'
 import './App.css'
 import MyComponent from './components/chatbot/chatbot'
-
 import Login from './components/login';
 import AppP from './hello'
 import Landing from './components/editor/src/components/Landing'
+
+
+// const AppEditor = () => <Landing />; // Define this function outside of the JSX
 
 // import AppLogin from './components/login/src/App.tsx'
 // import AppC from './components/chatbot/Chatbot'
 
 
-
 const App = () => {
-  const [{ themeName }] = useContext(ThemeContext)
-
+  const [{ themeName }] = useContext(ThemeContext);
   return (
-    
     <div id='top' className={`${themeName} app`}>
-       <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/editor" element={
-        <>
-        
-   <AppP />
-        </>} />
-        <Route path="/" element={
-        <> <Header />
-
-        <main>
-          <About />
-          <MyComponent />
-          <Projects />
-          <Skills />
-          <Contact />
-        </main>
-  
-        <ScrollToTop />
-        <Footer />
-        </>
-
-        } />
-      </Routes>
-    </BrowserRouter>
-     
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          {/* <Route path="/editor" element={<AppEditor />} /> */}
+          <Route 
+            path="/" 
+            element={
+              (
+                <>
+                  <Header />
+                  <main>
+                    <About />
+                    <MyComponent />
+                    <Projects />
+                    <Skills />
+                    <Contact />
+                  </main>
+                </>
+              )  
+            } 
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
-  )
-}
+  );
+};
 
 export default App
+
+
+
