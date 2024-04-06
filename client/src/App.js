@@ -1,7 +1,7 @@
-import { React,useContext } from 'react'
+import { React,useContext , useState} from 'react'
 import Chatbot from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom" 
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeContext } from './contexts/theme'
 import Header from './components/Header/Header'
 import About from './components/About/About'
@@ -16,6 +16,9 @@ import Login from './components/login';
 import AppP from './hello'
 import Landing from './components/editor/src/components/Landing'
 import AppEditor from './components/editor/src/App'
+import TodoList from './components/todol/TodoList'
+import ProtectedRoute from '../src/components/login/ProtectedRoute'; // Import ProtectedRoute
+import AuthContext from '../src/components/login/AuthContext';
 
 
 // const AppEditor = () => <Landing />; // Define this function outside of the JSX
@@ -26,12 +29,15 @@ import AppEditor from './components/editor/src/App'
 
 const App = () => {
   const [{ themeName }] = useContext(ThemeContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add this line
   return (
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}> {/* Wrap your app with AuthContext.Provider */}
     <div id='top' className={`${themeName} app`}>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/editor" element={<AppEditor />} />
+          <Route path="/editor" element={isLoggedIn ? <AppEditor /> : <Navigate to="/login" replace />} />
+          <Route path="/todol" element={isLoggedIn ? <TodoList /> : <Navigate to="/login" replace />} />
           {/* <Route path="/editor" element={<AppEditor />} /> */}
           <Route 
             path="/" 
@@ -55,6 +61,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </div>
+    </AuthContext.Provider>
   );
 };
 

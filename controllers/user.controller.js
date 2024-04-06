@@ -7,11 +7,13 @@ const { runQuery } = require('../connection.sql.js');
 
         const result = await runQuery(`SELECT * FROM users WHERE username="${email}" AND password="${password}"`);
         if (result.length === 0) {
-            return 0;
-            console.log('Invalid creds');
+          console.log('Invalid creds');
+          res.json({ success: false });
+            
           } else {
-            return 1;
             console.log('login');
+            res.json({ success: true });
+          
           };
 
 
