@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import AuthContext from './AuthContext';
 
 import {
@@ -12,17 +13,21 @@ import {
     TextField,
     Typography,
    } from '@mui/material';
-   import React, { useState } from 'react';
+   import React, { useState, useEffect } from 'react';
 // import { response } from 'express';
   //  import { useNavigate } from "react-router-dom";
    
   //  const navigate = useNavigate();
    function LoginUser() {
+    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    useEffect(() => {
+      console.log(isLoggedIn);
+    }, [isLoggedIn]);
     // const [formValues, setFormValues] = useState({
     //     email: '',
     //     password: '',
@@ -44,8 +49,10 @@ import {
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            console.log('response');
             setIsLoggedIn(true);  
+            console.log('response');
+            console.log(isLoggedIn);
+            
             // Redirect to home screen
             try{navigate('/');}
             catch(e){

@@ -19,6 +19,8 @@ import AppEditor from './components/editor/src/App'
 import TodoList from './components/todol/TodoList'
 import ProtectedRoute from '../src/components/login/ProtectedRoute'; // Import ProtectedRoute
 import AuthContext from '../src/components/login/AuthContext';
+import { AuthProvider } from'../src/components/login/AuthContext';
+import PieChart from './components/Analytics/PieChart';
 
 
 // const AppEditor = () => <Landing />; // Define this function outside of the JSX
@@ -29,13 +31,14 @@ import AuthContext from '../src/components/login/AuthContext';
 
 const App = () => {
   const [{ themeName }] = useContext(ThemeContext);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add this line
+  const [isLoggedIn, setIsLoggedIn] = useState(AuthContext); // Add this line
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}> {/* Wrap your app with AuthContext.Provider */}
+    <AuthProvider value={{ isLoggedIn, setIsLoggedIn }}> {/* Wrap your app with AuthContext.Provider */}
     <div id='top' className={`${themeName} app`}>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/analytics" element={<PieChart />} />
           <Route path="/editor" element={isLoggedIn ? <AppEditor /> : <Navigate to="/login" replace />} />
           <Route path="/todol" element={isLoggedIn ? <TodoList /> : <Navigate to="/login" replace />} />
           {/* <Route path="/editor" element={<AppEditor />} /> */}
@@ -61,7 +64,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </div>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 };
 

@@ -63,13 +63,16 @@ body {
   cursor: pointer;
 }
 
-.github-corner svg {
+.github-corner {
   position:absolute;
   right:0;
   top:0;
   mix-blend-mode:darken;
   color:#ffffff;
   fill:#000000;
+  background-image: url('../p2.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .github-corner:hover .octo-arm {
   animation:octocat-wave .56s;

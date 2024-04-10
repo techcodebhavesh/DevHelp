@@ -3,8 +3,10 @@ import GitHubIcon from '@material-ui/icons/GitHub'
 import LinkedInIcon from '@material-ui/icons/LinkedIn'
 import { about } from '../../portfolio'
 import './About.css'
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  const navigate = useNavigate();
   const { name, role, description, resume, social } = about
 
   return (
@@ -20,11 +22,15 @@ const About = () => {
 
       <div className='about__contact center'>
         {resume && (
-          <a href={resume}>
-            <span type='button' className='btn btn--outline'>
-              Editor
-            </span>
-          </a>
+          
+              <span 
+      type='button' 
+      className='btn btn--outline'
+      onClick={() => navigate('/editor')}
+    >
+      Editor
+    </span>
+        
         )}
 
         {social && (
