@@ -1,0 +1,25 @@
+.icon-chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .scroll-top {
+    position: relative;
+  }
+  
+  .chatbot-container {
+    position: absolute;
+    bottom: 60px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    transition: width 0.5s, height 0.5s;
+    z-index: 999;
+  }
+  
+  .chatbot-container.expanded {
+    width: 500px;
+    height: 500px;
+  }

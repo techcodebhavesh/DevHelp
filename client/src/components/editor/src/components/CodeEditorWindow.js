@@ -56,7 +56,7 @@ const CodeEditorWindow = ({ onChange, language, code, theme }) => {
           cursor: "pointer",
         }}
       >
-        Send Code
+        Autocomplete Code
       </button>
     </div>
   );

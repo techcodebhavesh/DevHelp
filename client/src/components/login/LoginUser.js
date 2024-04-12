@@ -50,8 +50,9 @@ import {
         .then((data) => {
           if (data.success) {
             setIsLoggedIn(true);  
+            localStorage.setItem('isLoggedIn', 'true'); // Add this line
             console.log('response');
-            console.log(isLoggedIn);
+           // console.log(isLoggedIn);
             
             // Redirect to home screen
             try{navigate('/');}

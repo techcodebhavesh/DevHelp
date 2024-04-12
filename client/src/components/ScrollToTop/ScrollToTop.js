@@ -4,6 +4,11 @@ import './ScrollToTop.css'
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false)
+  // const handleClick = () => {
+  //   setMyComponentVisible(true);
+  //   console.log('Icon clicked, state should be:', isMyComponentVisible);
+  // };
+  
 
   useEffect(() => {
     const toggleVisibility = () =>

@@ -12,7 +12,7 @@ const ProtectedRoute = ({ element, ...rest }) => {
         }
       }, [isLoggedIn, navigate]);
     
-      return isLoggedIn ? children : null;
+      return isLoggedIn ? element : null;
     };
     
   
