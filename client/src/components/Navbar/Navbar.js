@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { useContext, useState } from 'react'
 import Brightness2Icon from '@material-ui/icons/Brightness2'
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded'
@@ -13,6 +14,12 @@ const Navbar = () => {
   const [showNavList, setShowNavList] = useState(false)
 
   const toggleNavList = () => setShowNavList(!showNavList)
+  const navigate = useNavigate();
+  
+  const navigateToAnalytics = () => { // New function to navigate
+    navigate('/analytics');
+    toggleNavList();}
+
 
   return (
     <nav className='center nav'>
@@ -36,7 +43,7 @@ const Navbar = () => {
           <li className='nav__list-item'>
             <a
               href='#skills'
-              onClick={toggleNavList}
+              onClick={navigateToAnalytics} 
               className='link link--nav'
             >
               Skills

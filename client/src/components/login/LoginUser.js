@@ -46,11 +46,18 @@ import {
           },
           body: JSON.stringify({ email, password })
         })
-        .then((response) => response.json())
+        .then((response) => {
+          // // Clear local storage
+          // localStorage.clear();
+        
+          return response.json();
+        })
         .then((data) => {
           if (data.success) {
             setIsLoggedIn(true);  
-            localStorage.setItem('isLoggedIn', 'true'); // Add this line
+           // localStorage.setItem('isLoggedIn', 'true'); // Add this line
+            // localStorage.setItem('user', JSON.stringify({ email, password })); 
+            // console.log(localStorage.getItem('user'));
             console.log('response');
            // console.log(isLoggedIn);
             
@@ -107,6 +114,7 @@ import {
                   autoFocus
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  style={{ color: 'black' }}
                 />
                 <TextField
                   margin="normal"

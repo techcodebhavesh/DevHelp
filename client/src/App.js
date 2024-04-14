@@ -25,6 +25,7 @@ import PieChart from './components/Analytics/PieChart';
 
 // import { ScatterBoxLoader } from "react-awesome-loaders";
 import Cscroll from './components/chatbotScroll/Cscroll';
+import UserCard from './components/Analytics/card';
 
 
 // const AppEditor = () => <Landing />; // Define this function outside of the JSX
@@ -35,8 +36,7 @@ import Cscroll from './components/chatbotScroll/Cscroll';
 
 const App = () => {
   const [{ themeName }] = useContext(ThemeContext);
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem('isLoggedIn') === 'true');
   // const [isLoggedIn, setIsLoggedIn] = useState(undefined); // Add this line
     
   // const [isLoading, setIsLoading] = useState(true);
@@ -56,11 +56,11 @@ console.log({isLoggedIn});
           ) : ( */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/analytics" element={<PieChart />} />
+          <Route path="/analytics" element={<UserCard />} />
           <Route path="/editor" element={isLoggedIn ? <AppEditor /> : <Navigate to="/login" replace />} />
           {/* <Route path="/editor" element={<AppEditor />} /> */}
-          <Route path="/todol" element={isLoggedIn ? <TodoList /> : <Navigate to="/login" replace />} />
-          {/* <Route path="/editor" element={<AppEditor />} /> */}
+          {/* <Route path="/todol" element={isLoggedIn ? <TodoList /> : <Navigate to="/login" replace />} /> */}
+          <Route path="/todol" element={<TodoList />} />
           <Route 
             path="/" 
             element={

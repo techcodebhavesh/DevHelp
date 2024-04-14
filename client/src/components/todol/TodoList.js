@@ -1,152 +1,162 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'D:/DevHelp/client/src/components/todol/style.css';
-import todoImage from "D:/DevHelp/client/src/components/todol/todo.png"
-import todos from './todos.json';
-
+import './style.css'; // Update the path to your CSS file
+import todoImage from './todo.png'; // Update the path to your image file
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const TodoList = () => {
-  // State variables
-  const [tasks, setTasks] = useState([]); // Holds the list of tasks
-  const [inputValue, setInputValue] = useState(''); // Holds the value of the input field
-  const [filter, setFilter] = useState('all'); // Holds the current filter type
-  const [isLoading, setIsLoading] = useState(true); // Indicates whether the data is being loaded
-  const [editTaskId, setEditTaskId] = useState(null); // Holds the ID of the task being edited
+  const [tasks, setTasks] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [filter, setFilter] = useState('all');
 
-  // Fetch initial data
   useEffect(() => {
     fetchTodos();
   }, []);
 
-  // Fetch todos from an API
   const fetchTodos = async () => {
     try {
-      
+      const response = await fetch('http://localhost:5003/api/todos/gettodos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      var todos = await response.json();
+      todos = todos.map((todo) => ({ ...todo, status: todo.status === "true" ? true : false }));
       setTasks(todos);
-      setIsLoading(false);
+      console.log({ todos });
     } catch (error) {
       console.log('Error fetching todos:', error);
-      setIsLoading(false);
     }
   };
 
-  // Handle input change
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // Add a new task
   const handleAddTask = async () => {
     if (inputValue.trim() === '') {
       return;
     }
 
-    // const newTask = {
-    //   title: inputValue,
-    //   completed: false
-    // };
-
-    const addedTask ={
-      "userId": 1,
-      "id": todos.length + 1,
-      "title": inputValue,
-      "completed": false
-    };
-    const updatedTodos = [...todos, addedTask];
-    setTasks(updatedTodos);
-    setInputValue('');
-    toast.success('Task added successfully');
+    try {
+      const response = await fetch('http://localhost:5003/api/todos/addtodos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ todos: inputValue, status: "false", important: false }) // Adjust property names according to your data
+      });
+      fetchTodos();
+      setInputValue('');
+      toast.success('Task added successfully');
+    } catch (error) {
+      console.log('Error adding task:', error);
+      toast.error('Error adding task');
+    }
   };
 
-  // Handle checkbox change for a task
-  const handleTaskCheckboxChange = (taskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
+  const handleTaskCheckboxChange = async (todos) => {
+    try {
+      const response = await fetch(`http://localhost:5003/api/todos/toggletodos`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ todos: todos }) // Adjust property names according to your data
+      });
+      if (response.ok) {
+        fetchTodos();
+        toast.success('Task status updated successfully');
+      } else {
+        toast.error('Failed to update task status');
+      }
+    } catch (error) {
+      console.log('Error updating task status:', error);
+      toast.error('Error updating task status');
+    }
   };
 
-  // Delete a task
-  const handleDeleteTask = (taskId) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-    toast.success('Task deleted successfully');
+  const handleDeleteTask = async (inputValue) => {
+    console.log({ inputValue });
+    try {
+      const response = await fetch(`http://localhost:5003/api/todos/deletetodos`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+
+        },
+        body: JSON.stringify({ todos: inputValue, status: false }) // Adjust property names according to your data
+      }
+      );
+      fetchTodos();
+      toast.success('Task deleted successfully');
+    } catch (error) {
+      console.log('Error deleting task:', error);
+      toast.error('Error deleting task');
+    }
   };
 
-  // Edit a task
-  const handleEditTask = (taskId) => {
-    setEditTaskId(taskId);
-    const taskToEdit = tasks.find((task) => task.id === taskId);
-    setInputValue(taskToEdit.title);
-  };
-
-  // Update a task
-  const handleUpdateTask = async () => {
-    if (inputValue.trim() === '') {
+  const handleCompleteAll = async () => {
+    const uncompletedTasks = tasks.filter(task => !task.status);
+    if (uncompletedTasks.length === 0) {
+      toast.info('All tasks are already completed');
       return;
     }
 
-    const updatedTask = {
-      title: inputValue,
-      completed: false
-    };
-
     try {
-      const updatedTask = {
-        title: inputValue,
-        completed: false
-      };
-
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === editTaskId ? { ...task, ...updatedTask } : task
-        )
-      );
-      setInputValue('');
-      setEditTaskId(null);
-      toast.success('Task updated successfully');
+      await Promise.all(uncompletedTasks.map(task => handleTaskCheckboxChange(task.todos)));
+      toast.success('All tasks marked as completed');
     } catch (error) {
-      console.log('Error updating task:', error);
-      toast.error('Error updating task');
+      console.log('Error completing all tasks:', error);
+      toast.error('Error completing all tasks');
     }
   };
 
-  // Mark all tasks as completed
-  const handleCompleteAll = () => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => ({ ...task, completed: true }))
-    );
+  const handleClearCompleted = async () => {
+    const completedTasks = tasks.filter(task => task.status); // Adjust property names according to your data
+    if (completedTasks.length === 0) {
+      toast.info('No completed tasks to delete');
+      return;
+    }
+
+    try {
+      await Promise.all(completedTasks.map(task => handleDeleteTask(task.todos)));
+      toast.success('Completed tasks deleted successfully');
+    } catch (error) {
+      console.log('Error deleting completed tasks:', error);
+      toast.error('Error deleting completed tasks');
+    }
   };
 
-  // Clear completed tasks
-  const handleClearCompleted = () => {
-    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
-  };
-
-  // Handle filter change
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
   };
 
-  // Filter tasks based on the selected filter
-  const filteredTasks = tasks.filter((task) => {
+  const filteredTasks = tasks.filter(task => {
     if (filter === 'all') {
       return true;
     } else if (filter === 'completed') {
-      return task.completed;
+      return task.status;
     } else if (filter === 'uncompleted') {
-      return !task.completed;
+      return !task.status;
     }
     return true;
   });
 
-  // Display loading message while data is being fetched
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const handleDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
 
-  // Render the todo list
+    const reorderedTasks = Array.from(filteredTasks);
+    const [removed] = reorderedTasks.splice(result.source.index, 1);
+    reorderedTasks.splice(result.destination.index, 0, removed);
+
+    setTasks(reorderedTasks);
+  };
+
   return (
     <div className="container">
       <ToastContainer />
@@ -165,8 +175,8 @@ const TodoList = () => {
             value={inputValue}
             onChange={handleInputChange}
           />
-          <button id="btn" onClick={editTaskId ? handleUpdateTask : handleAddTask}>
-            {editTaskId ? 'Update' : 'Add'}
+          <button id="btn" onClick={handleAddTask}>
+            Add
           </button>
         </div>
 
@@ -176,39 +186,52 @@ const TodoList = () => {
             Complete all tasks
           </p>
           <p id="clear-all" onClick={handleClearCompleted}>
-            Delete comp tasks
+            Delete completed tasks
           </p>
         </div>
 
-        <ul id="list">
-          {filteredTasks.map((task) => (
-            <li key={task.id}>
-              <input
-                type="checkbox"
-                id={`task-${task.id}`}
-                data-id={task.id}
-                className="custom-checkbox"
-                checked={task.completed}
-                onChange={() => handleTaskCheckboxChange(task.id)}
-              />
-              <label htmlFor={`task-${task.id}`}>{task.title}</label>
-              <div>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/1159/1159633.png"
-                  className="edit"
-                  data-id={task.id}
-                  onClick={() => handleEditTask(task.id)}
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/3096/3096673.png"
-                  className="delete"
-                  data-id={task.id}
-                  onClick={() => handleDeleteTask(task.id)}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="tasks">
+            {(provided) => (
+              <ul id="list" {...provided.droppableProps} ref={provided.innerRef}>
+                {filteredTasks.map((task, index) => (
+                  <Draggable key={task.todos} draggableId={task.todos} index={index}>
+                    {(provided) => (
+                      <li
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <input
+                          type="checkbox"
+                          id={`task-${task.id}`}
+                          data-id={task.id}
+                          className="custom-checkbox"
+                          checked={task.status}
+                          onChange={() => handleTaskCheckboxChange(task.todos)}
+                        />
+                        <label
+                          htmlFor={`task-${task.id}`}
+                          style={{ fontWeight: task.important ? 'bold' : 'normal' }}
+                        >
+                          {task.todos}
+                        </label>
+                        <div>
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/128/3096/3096673.png"
+                            className="delete"
+                            onClick={() => handleDeleteTask(task.todos)}
+                          />
+                        </div>
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
 
         <div className="filters">
           <div className="dropdown">
@@ -228,7 +251,7 @@ const TodoList = () => {
 
           <div className="completed-task">
             <p>
-              Completed: <span id="c-count">{tasks.filter((task) => task.completed).length}</span>
+              Completed: <span id="c-count">{tasks.filter(task => task.status).length}</span>
             </p>
           </div>
           <div className="remaining-task">
