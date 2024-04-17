@@ -10,6 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 const userRouter = require("./routers/user.router");
 const graphsRouter = require("./routers/graphs.data.router");
 const todosRouter = require("./routers/todos.router");
+const promptRouter = require("./routers/prompt.router");
 
 const app = express();
 const PORT = process.env.PORT || 5003;
@@ -27,5 +28,5 @@ app.use("/api/togemini_autocom", togemini_autocomRouter);
 app.use("/api/user", userRouter);
 app.use("/api/graphs", graphsRouter);
 app.use("/api/todos", todosRouter);
-
+app.use("/api/prompt", promptRouter);
 app.listen(PORT, () => console.log("Server running on " + PORT));

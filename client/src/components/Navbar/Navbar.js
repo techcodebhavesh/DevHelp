@@ -20,6 +20,11 @@ const Navbar = () => {
     navigate('/analytics');
     toggleNavList();}
 
+    const navigateToTodol = () => { // New function to navigate
+      navigate('/todol');
+      toggleNavList();}
+  
+
 
   return (
     <nav className='center nav'>
@@ -31,7 +36,7 @@ const Navbar = () => {
           <li className='nav__list-item'>
             <a
               href='#projects'
-              onClick={toggleNavList}
+              onClick={navigateToTodol}
               className='link link--nav'
             >
               Projects

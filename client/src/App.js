@@ -57,11 +57,11 @@ console.log({isLoggedIn});
           ) : ( */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/analytics" element={<Dashboard />} />
+          <Route path="/analytics" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace />} />
           <Route path="/editor" element={isLoggedIn ? <AppEditor /> : <Navigate to="/login" replace />} />
           {/* <Route path="/editor" element={<AppEditor />} /> */}
           {/* <Route path="/todol" element={isLoggedIn ? <TodoList /> : <Navigate to="/login" replace />} /> */}
-          <Route path="/todol" element={<TodoList />} />
+          <Route path="/todol" element={isLoggedIn ? <TodoList /> : <Navigate to="/login" replace />} />
           <Route 
             path="/" 
             element={

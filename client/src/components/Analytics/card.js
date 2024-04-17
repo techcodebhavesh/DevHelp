@@ -51,8 +51,27 @@ const fetchUserDetails = async () => {
     const userDetails = await response.json();
     console.log({userDetails});
 
-    return userDetails;
+   // return userDetails;
+
+     // Another fetch post request
+     const response2 = await fetch('http://localhost:5003/api/prompt/text', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+  });
+
+  if (!response2.ok) {
+      throw new Error(`HTTP error! status: ${response2.status}`);
+  }
+
+  const anotherDetails = await response2.json();
+  console.log({anotherDetails});
+
+  return { userDetails, anotherDetails };
 }
+
 
 // Call the function
 // fetchUserDetails().then(userDetails => {
@@ -64,15 +83,18 @@ const fetchUserDetails = async () => {
 function UserCard() {
     const classes = useStyles();
     const [userDetails, setUserDetails] = useState({});
+    const [anotherDetails, setAnotherDetails] = useState({});
   
     useEffect(() => {
       fetchUserDetails().then(details => {
-        setUserDetails(details);
+        setUserDetails(details.userDetails);
+        setAnotherDetails(details.anotherDetails);
        console.log(details);
       }).catch(e => {
         console.error('An error occurred while fetching the user details:', e);
       });
     }, []); // Empty dependency array means this effect runs once on mount
+    
     // if (userDetails) {
     //   console.log(userDetails.username);
     // } else {
@@ -89,6 +111,9 @@ function UserCard() {
           </Typography>
           <Typography className={classes.bio}>
             Not accepted: {userDetails.rejectedCount} 
+          </Typography>
+          <Typography className={classes.bio}>  
+            AI Suggestion: {anotherDetails.answer} 
           </Typography>
         </CardContent>
       </Card>

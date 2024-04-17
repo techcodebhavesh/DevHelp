@@ -3,7 +3,9 @@ const { runQuery } = require('../connection.sql.js');
 
 const getTodos = async (req, res) => {
   try {
-    const results = await runQuery('SELECT * FROM user_todos where username="hello@gmail.com"');
+  
+    const {email} = req.body;
+    const results = await runQuery('SELECT * FROM user_todos where username= ?', [email]);
     
     const modifiedResults = results.map(({ id, todos, status }) => ({ id, todos, status }));
     res.send(modifiedResults);
