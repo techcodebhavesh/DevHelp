@@ -21,25 +21,32 @@ const projects = [
   // projects can be added an removed
   // if there are no projects, Projects section won't show up
   {
-    name: 'Project 1',
+    name: 'Smart Code Editor',
     description:
-      'bhai bhai',
+      'Smart Autocomplete, Syntax Highlighting, and Error Detection for a variety of programming languages.',
     stack: ['java', 'TypeScript', 'React'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
   },
   {
-    name: 'Project 2',
+    name: 'Interactive Chatbot',
     description:
-      'bhai bhai',
+      'A chatbot that provides real-time assistance and answers to common coding questions.',
     stack: ['java', 'TypeScript', 'React'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
   },
   {
-    name: 'Project 3',
+    name: 'Dashboard Analytics',
     description:
-      'bhai bhai',
+      'A dashboard that provides insights into coding performance, productivity, and efficiency.',
+    stack: ['java', 'TypeScript', 'React'],
+    sourceCode: 'https://github.com',
+    livePreview: 'https://github.com',
+  },
+  {
+    name: 'Intuitive Assignment List',
+    description:'A simple and intuitive task list that helps users organize and manage their coding assignments.',
     stack: ['java', 'TypeScript', 'React'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
@@ -60,7 +67,7 @@ const skills = [
   'Git',
   'CI/CD',
   'Jest',
-  'Enzyme',
+  'Electron',
 ]
 
 const contact = {

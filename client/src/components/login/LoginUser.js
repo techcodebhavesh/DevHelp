@@ -56,8 +56,8 @@ import {
           if (data.success) {
             setIsLoggedIn(true);  
            // localStorage.setItem('isLoggedIn', 'true'); // Add this line
-            // localStorage.setItem('user', JSON.stringify({ email, password })); 
-            // console.log(localStorage.getItem('user'));
+             localStorage.setItem('user', JSON.stringify({ email, password })); 
+            console.log(localStorage.getItem('user'));
             console.log('response');
            // console.log(isLoggedIn);
             

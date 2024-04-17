@@ -34,9 +34,8 @@ const useStyles = makeStyles({
 const fetchUserDetails = async () => {
   //  const user = JSON.parse(localStorage.getItem('user'));
     // console.log({user});
-    const user = {
-        username: 'hello@gmail.com',
-        password: '12345'}
+    const user = JSON.parse(localStorage.getItem('user'));
+     console.log({user});
     const response = await fetch('http://localhost:5003/api/graphs/usersend', {
         method: 'POST', // or 'GET'
         headers: {
@@ -50,16 +49,17 @@ const fetchUserDetails = async () => {
     }
 
     const userDetails = await response.json();
+    console.log({userDetails});
 
     return userDetails;
 }
 
 // Call the function
-fetchUserDetails().then(userDetails => {
-    //console.log(userDetails);
-}).catch(e => {
-    console.error('An error occurred while fetching the user details:', e);
-});
+// fetchUserDetails().then(userDetails => {
+//     //console.log(userDetails);
+// }).catch(e => {
+//     console.error('An error occurred while fetching the user details:', e);
+// });
 
 function UserCard() {
     const classes = useStyles();
@@ -67,20 +67,28 @@ function UserCard() {
   
     useEffect(() => {
       fetchUserDetails().then(details => {
-        setUserDetails(details);
+        setUserDetails(details[0]);
+       // console.log(details);
       }).catch(e => {
         console.error('An error occurred while fetching the user details:', e);
       });
     }, []); // Empty dependency array means this effect runs once on mount
-  
+    // if (userDetails) {
+    //   console.log(userDetails.username);
+    // } else {
+    //   console.log('userDetails is not defined');
+    // }
     return (
       <Card className={classes.root}>
         <CardContent>
           <Typography className={classes.name} gutterBottom>
-            {userDetails.username}
+            Username: {userDetails.username}
           </Typography>
           <Typography className={classes.bio}>
-            {userDetails.accepted}
+           Accepted: {userDetails.accepted}
+          </Typography>
+          <Typography className={classes.bio}>
+            Not accepted: {userDetails.naccepted}
           </Typography>
         </CardContent>
       </Card>

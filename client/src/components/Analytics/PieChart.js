@@ -5,6 +5,7 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 function PieChart() {
+    const user = JSON.parse(localStorage.getItem('user'));
     const [data, setData] = useState({
         labels: ["Accepted", "Not Accepted"],
         datasets: [
@@ -27,7 +28,7 @@ function PieChart() {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: [12,34,45,2,34,45,5],
+                data: [70,30],
             },
         ],
     });
@@ -40,7 +41,7 @@ function PieChart() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                  
+                  body: JSON.stringify(user),
                 });
 
                 if (!response.ok) {

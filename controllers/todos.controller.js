@@ -17,8 +17,8 @@ const getTodos = async (req, res) => {
 
 const addTodos = async (req, res) => {
     try {
-        const { todos, status } = req.body;
-      const results = await runQuery(`INSERT INTO user_todos (username, todos, status) VALUES ('hello@gmail.com', ?, ?)`, [todos, status]);
+        const { email, todos, status } = req.body;
+      const results = await runQuery(`INSERT INTO user_todos (username, todos, status) VALUES (?, ?, ?)`, [email, todos, status]);
       
     //   const modifiedResults = results.map(({ id, todos, status }) => ({ id, todos, status }));
       res.send(results);
@@ -32,8 +32,8 @@ const addTodos = async (req, res) => {
 
   const deleteTodos = async (req, res) => {
     try {
-        const {  todos } = req.body;
-      const results = await runQuery(`delete from user_todos where todos = ?`, [todos]);
+        const {  email, todos } = req.body;
+      const results = await runQuery(`delete from user_todos where todos = ? and username= ?`, [todos, email]);
       console.log(req.body);
     //   const modifiedResults = results.map(({ id, todos, status }) => ({ id, todos, status }));
       res.send(results);
@@ -45,9 +45,9 @@ const addTodos = async (req, res) => {
   };
 
   const toggleTodos = async (req, res) => {
-    const { todos } = req.body;
+    const { email, todos } = req.body;
     try {
-      const results = await runQuery(`UPDATE user_todos SET status = 'true' WHERE todos = ?`, [todos]);
+      const results = await runQuery(`UPDATE user_todos SET status = 'true' WHERE todos = ? and username= ?`, [todos, email]);
       
     //   const modifiedResults = results.map(({ id, todos, status }) => ({ id, todos, status }));
       res.send(results);

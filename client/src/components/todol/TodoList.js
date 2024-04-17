@@ -6,6 +6,7 @@ import todoImage from './todo.png'; // Update the path to your image file
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const TodoList = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [filter, setFilter] = useState('all');
@@ -15,12 +16,14 @@ const TodoList = () => {
   }, []);
 
   const fetchTodos = async () => {
+    
     try {
       const response = await fetch('http://localhost:5003/api/todos/gettodos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user) // Add your request body here
       });
       var todos = await response.json();
       todos = todos.map((todo) => ({ ...todo, status: todo.status === "true" ? true : false }));
@@ -46,7 +49,7 @@ const TodoList = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ todos: inputValue, status: "false", important: false }) // Adjust property names according to your data
+        body: JSON.stringify({ email: user.email,todos: inputValue, status: "false", important: false }) // Adjust property names according to your data
       });
       fetchTodos();
       setInputValue('');
@@ -64,7 +67,7 @@ const TodoList = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ todos: todos }) // Adjust property names according to your data
+        body: JSON.stringify({ email: user.email, todos: todos }) // Adjust property names according to your data
       });
       if (response.ok) {
         fetchTodos();
@@ -87,7 +90,7 @@ const TodoList = () => {
           'Content-Type': 'application/json',
 
         },
-        body: JSON.stringify({ todos: inputValue, status: false }) // Adjust property names according to your data
+        body: JSON.stringify({ email:user.email, todos: inputValue, status: false }) // Adjust property names according to your data
       }
       );
       fetchTodos();
