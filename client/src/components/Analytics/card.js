@@ -67,8 +67,8 @@ function UserCard() {
   
     useEffect(() => {
       fetchUserDetails().then(details => {
-        setUserDetails(details[0]);
-       // console.log(details);
+        setUserDetails(details);
+       console.log(details);
       }).catch(e => {
         console.error('An error occurred while fetching the user details:', e);
       });
@@ -85,10 +85,10 @@ function UserCard() {
             Username: {userDetails.username}
           </Typography>
           <Typography className={classes.bio}>
-           Accepted: {userDetails.accepted}
+           Accepted: {userDetails.acceptedcount}
           </Typography>
           <Typography className={classes.bio}>
-            Not accepted: {userDetails.naccepted}
+            Not accepted: {userDetails.rejectedCount} 
           </Typography>
         </CardContent>
       </Card>
