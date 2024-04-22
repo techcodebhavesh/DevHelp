@@ -1,6 +1,5 @@
 const { runQuery } = require('../connection.sql.js');
- 
- const existUser = async (req, res) => {
+  const existUser = async (req, res) => {
     const { email,password } = req.body; 
  
  try {
@@ -23,7 +22,30 @@ const { runQuery } = require('../connection.sql.js');
   }
 };
 
+
+  const signup = async (req, res) => {
+    const { email,password } = req.body; 
+ 
+ try {
+
+        const result = await runQuery(`insert into users(username,password) values (?,?)`,[email,password]);
+        if (result.affectedRows === 0) {
+          console.log('oops');
+          res.json({ success: false });
+        } else {
+          console.log('login');
+          res.json({ success: true });
+        };
+
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
     existUser,
+    signup,
   };
  

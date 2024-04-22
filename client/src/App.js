@@ -27,6 +27,7 @@ import PieChart from './components/Analytics/PieChart';
 import Cscroll from './components/chatbotScroll/Cscroll';
 import Dashboard from './components/Analytics/Dashboard';
 import { useAuth } from './components/login/AuthState';
+import Signup from './components/login/Signup';
 
 
 // const AppEditor = () => <Landing />; // Define this function outside of the JSX
@@ -57,6 +58,7 @@ console.log({isLoggedIn});
           ) : ( */}
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/analytics" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" replace />} />
           <Route path="/editor" element={isLoggedIn ? <AppEditor /> : <Navigate to="/login" replace />} />
           {/* <Route path="/editor" element={<AppEditor />} /> */}

@@ -28,6 +28,9 @@ import {
     useEffect(() => {
       console.log(isLoggedIn);
     }, [isLoggedIn]);
+    useEffect(() => {
+      document.body.style.backgroundColor = "#0C2D57"; // Change this to your desired color
+    }, []);
     // const [formValues, setFormValues] = useState({
     //     email: '',
     //     password: '',
@@ -93,80 +96,51 @@ import {
       // const handleLogin = async () => {
    
       // };
-      
       return (
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-        <Container component="main" maxWidth="xs">
-          <Box mt={8}>
-            <Typography component="h1" variant="h5" align="center">
-              Sign In
-            </Typography>
-            <Box mt={2}>
-              <form>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  type="email"
-                  label="Email Address"
-                  autoComplete="email"
-                  autoFocus
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={{ color: 'black' }}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                {error && (
-                  <Typography variant="body2" color="error" align="center">
-                    {error}
-                  </Typography>
-                )}
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: '1rem' }}
-                  onClick={handleLogin}
-                >
-                  Sign In
-                </Button>
-                <Grid container justify="center" style={{ marginTop: '1rem' }}>
-                  <Grid item>
-                    <Link href="https://harshitamittal2001.medium.com/create-a-simple-login-form-for-your-react-application-c15a8ead146b">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                </Grid>
-                <Grid container justify="center" style={{ marginTop: '1rem' }}> 
-                  <Typography>
-                    Dont have an account?
-                    {' '}
-                    <Link href="https://harshitamittal2001.medium.com/create-a-simple-login-form-for-your-react-application-c15a8ead146b">
-                      Sign Up
-                    </Link>
-                  </Typography>
-                </Grid>
-              </form>
-            </Box>
-          </Box>
-        </Container>
-        </AuthContext.Provider>
+        <div style={{ backgroundColor: "#0C2D57", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ backgroundColor: '#f0f0f0', padding: '2rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', maxWidth: '400px', width: '100%', }}>
+            <h1 style={{ textAlign: 'center', marginBottom: '1rem', color: '#333' }}>Sign In</h1>
+            <form style={{ display: 'flex', flexDirection: 'column' }}>
+              <input
+                type="email"
+                placeholder="Email Address"
+                style={{ marginBottom: '1rem', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                style={{ marginBottom: '1rem', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                <input type="checkbox" id="remember" style={{ marginRight: '0.5rem' }} />
+                <label htmlFor="remember" style={{ color: '#333' }}>Remember me</label>
+              </div>
+              {error && (
+                <p style={{ marginBottom: '0.5rem', color: 'red' }}>{error}</p>
+              )}
+              <button
+                type="button"
+                style={{ marginBottom: '1rem', padding: '0.5rem', borderRadius: '4px', backgroundColor: '#0C2D57', color: '#fff', border: 'none', cursor: 'pointer' }}
+                onClick={handleLogin}
+              >
+                Sign In
+              </button>
+              <div style={{ textAlign: 'center' }}>
+                <a href="https://harshitamittal2001.medium.com/create-a-simple-login-form-for-your-react-application-c15a8ead146b" style={{ color: '#333', textDecoration: 'none' }}>Forgot password?</a>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <p style={{ color: '#333' }}>Don't have an account? <a href="https://harshitamittal2001.medium.com/create-a-simple-login-form-for-your-react-application-c15a8ead146b" style={{ color: '#333', textDecoration: 'none' }}>Sign Up</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
       );
+      
+    
+      
    }
    export default LoginUser;
