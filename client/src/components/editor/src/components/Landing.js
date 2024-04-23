@@ -231,7 +231,7 @@ const Landing = () => {
       <div className="h-4 w-full bg-gradient-to-r from-blue-500 to-cyan-500"></div>
       <div className="flex flex-row">
         <div className="px-4 py-2">
-          <LanguagesDropdown onSelectChange={onSelectChange} />
+          <LanguagesDropdown onSelectChange={onSelectChange} language={language} />
         </div>
         <div className="px-4 py-2">
           <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
