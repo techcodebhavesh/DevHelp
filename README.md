@@ -2,11 +2,11 @@
 
 DevHelp is a concise and efficient assistant designed to aid developers in their coding endeavors. With DevHelp, programmers can quickly access documentation, troubleshoot errors, and find solutions to common coding challenges within the. Its user-friendly interface and comprehensive resources streamline the development process, empowering users to write clean, robust, and efficient code with ease.
 
-## Flowchart:
-![Flowchart](flowchart.jpg)
-
 ## Demo:
 ![Demo](demo.gif)
+
+## Flowchart:
+![Flowchart](flowchart.jpg)
 
 ## Key Features
 
