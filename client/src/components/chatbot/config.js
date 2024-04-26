@@ -1,7 +1,7 @@
 // in config.js
 import { createChatBotMessage } from 'react-chatbot-kit';
 
-const botName = 'ExcitementBot';
+const botName = 'DevHelp';
 
 const config = {
   initialMessages: [createChatBotMessage(`Hi! I'm ${botName}`)],

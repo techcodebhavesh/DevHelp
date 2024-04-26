@@ -165,7 +165,7 @@ const TodoList = () => {
       <ToastContainer />
       <div className="todo-app">
         <h2>
-          <img src={todoImage} alt="todo-image" /> Todo List
+          <img src={todoImage} alt="todo-image" /> Assignment List
         </h2>
         <div className="row">
           <i className="fas fa-list-check"></i>
@@ -173,7 +173,7 @@ const TodoList = () => {
             type="text"
             className="add-task"
             id="add"
-            placeholder="Add your todo"
+            placeholder="Add your assignment"
             autoFocus
             value={inputValue}
             onChange={handleInputChange}
