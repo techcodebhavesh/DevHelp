@@ -11,7 +11,7 @@ With an array of powerful features, DevHelp empowers developers of all skill lev
 
 ## Key Features
 
-1. Smart Code Editor:
+1. *Smart Code Editor:*
 DevHelp comes equipped with a state-of-the-art code editor that enhances your coding workflow. Enjoy features like syntax highlighting, code formatting, and seamless integration with popular programming languages.
 
 2. Autocomplete Code:
