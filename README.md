@@ -32,6 +32,17 @@ DevHelp is a concise and efficient assistant designed to aid developers in their
    - Copy the `.env.example` file and rename it to `.env`.
    - Update the `.env` file with the credentials obtained from the respective services in the respective directories.
 
+4. **Install Dependencies:**
+    - To ensure all dependencies are installed correctly, navigate to the project's client and root directory and run the following command:
+   ```
+   npm install
+   ```
+4. **Fix for Legacy Peer Dependencies:**
+    - If you encounter any issues related to legacy peer dependencies during the installation process, use the following command to install them:
+   ```
+   npm i --legacy-peer-deps
+   ```
+
 4. **Build the Project:**
    ```
    npm run build
