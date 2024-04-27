@@ -1,6 +1,7 @@
 # DevHelp - A Coding Assistant
 
 DevHelp is a concise and efficient assistant designed to aid developers in their coding endeavors. With DevHelp, programmers can quickly access documentation, troubleshoot errors, and find solutions to common coding challenges within the. Its user-friendly interface and comprehensive resources streamline the development process, empowering users to write clean, robust, and efficient code with ease.
+With an array of powerful features, DevHelp empowers developers of all skill levels to write cleaner, more efficient code while offering comprehensive support and insights along the way.
 
 ## Demo:
 ![Demo](demo.gif)
@@ -10,11 +11,23 @@ DevHelp is a concise and efficient assistant designed to aid developers in their
 
 ## Key Features
 
-- Support for Multiple Languages
-- AI-Based Chatbot
-- Smart Code Editor
-- Dashboard Analytics
-- Intuitive Assignment List
+1. Smart Code Editor:
+DevHelp comes equipped with a state-of-the-art code editor that enhances your coding workflow. Enjoy features like syntax highlighting, code formatting, and seamless integration with popular programming languages.
+
+2. Autocomplete Code:
+Boost your productivity with intelligent code autocompletion. DevHelp suggests relevant code snippets and completions as you type, speeding up your development process and reducing errors.
+
+3. AI Chatbot:
+Get instant answers to your coding queries with our AI-powered chatbot. Whether you're stuck on a bug or need clarification on a concept, the chatbot is here to assist you 24/7.
+
+4. Analytics Page:
+Gain valuable insights into your coding habits and performance with DevHelp's analytics page. Track metrics such as code complexity, productivity trends, and time spent on different tasks to optimize your workflow.
+
+5. AI Suggestions:
+DevHelp goes beyond traditional assistance by analyzing your coding patterns and providing personalized suggestions for improvement. Leverage AI-driven insights to enhance your skills and become a more proficient developer.
+
+6. Assignment List:
+Stay organized and focused with DevHelp's intuitive assignment list. Easily manage your coding tasks, track deadlines, and prioritize your workload for maximum efficiency.
   
 ## Installation Steps
 
