@@ -6,10 +6,10 @@ const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/
 
 const { GoogleGenerativeAI } = require("@google/generative-ai"); // Assuming library is installed
 
-const genAI = new GoogleGenerativeAI("AIzaSyCEuMKJPB3mvuECsZpgZxCyJPdOXcNJvYQ");
+const genAI = new GoogleGenerativeAI("gemini api key");
 async function generateChatbotResponse(question) {
   // Retrieve API key from environment variable (assuming it's set)
-  // const apiKey = "AIzaSyCEuMKJPB3mvuECsZpgZxCyJPdOXcNJvYQ";
+
   console.log(question);
   const normalText=question;
   
